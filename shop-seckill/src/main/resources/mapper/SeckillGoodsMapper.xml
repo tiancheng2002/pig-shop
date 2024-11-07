@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhu.mapper.SeckillGoodsMapper">
+
+    <select id="secKillGoods" resultType="com.zhu.vo.SecKillGoodsVo">
+        select a.gname,a.price,a.gimg,b.*
+            from t_goods a,t_seckill_goods b
+                where a.gid = b.gid
+    </select>
+
+    <select id="detail" resultType="com.zhu.vo.SecKillGoodsVo">
+        select a.gname,a.price,a.gimg,a.description,b.*
+            from t_goods a,t_seckill_goods b
+                where a.gid = b.gid and b.id = #{id}
+    </select>
+
+</mapper>

@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: shop-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    gateway:
+      routes: #网关路由配置
+        - id: shop-search #路由id，自定义，但是要保证唯一
+          #url: http://127.0.0.1:8082 路由的目标地址
+          uri: http://localhost:8082 #路由的目标地址就是lb负载均衡，通过服务名来进行查找，去nacos服务注册中心查找
+          predicates:
+            - Path=/mySearch/**,/shopGoods/**
+        - id: shop-goods
+          uri: http://localhost:8080
+          predicates:
+            - Path=/goods/**,/star/**,/type/**
+        - id: shop-user
+          uri: http://localhost:8084
+          predicates:
+            - Path=/user/**,/address/**,/role/**
+        - id: shop-cart
+          uri: http://localhost:8085
+          predicates:
+            - Path=/cart/**
+        - id: shop-order
+          uri: http://localhost:8086
+          predicates:
+            - Path=/order/**
+        - id: shop-seckill
+          uri: http://localhost:8087
+          predicates:
+            - Path=/seckill/**
+        - id: shop-comment
+          uri: http://localhost:8089
+          predicates:
+            - Path=/comment/**
+      globalcors: #全局的跨域处理
+        add-to-simple-url-handler-mapping: true #解决option请求被拦截问题
+        cors-configurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:8081" #允许哪些网站的跨域请求
+              - "http://localhost:9999"
+            allowedMethods:
+              - "GET"
+              - "POST"
+              - "DELETE"
+              - "PUT"
+              - "OPTIONS"
+            allowedHeaders: "*" #允许在请求中携带头部信息
+            allowCredentials: true
+            maxAge: 36000
+server:
+  port: 8083

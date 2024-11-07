@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- jquery -->
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+</head>
+<body>
+    <div style="background-color:white">
+        <div class="content">
+            <div>
+                <img src="https://pc.mall4j.com/_nuxt/img/flash-banner.3231c14.jpg">
+            </div>
+            <div>
+                <div class="sec_items">
+                    <div th:onclick="'secDetail('+${goods.id}+')'" th:each="goods:${goods}" class="sec_item">
+                        <div class="goods_img">
+                            <img class="item_img" th:src="${goods.gimg}">
+                        </div>
+                        <div class="goods_name">[[${goods.gname}]]</div>
+                        <div class="prices">
+                            <span class="sec_price">￥[[${goods.price}]]</span><span class="before_price">￥[[${{goods.seckillPrice}}]]</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+
+    function secDetail(id) {
+        window.location.href = "http://localhost:8087/detail.html?id="+id;
+        console.log(id)
+    }
+
+</script>
+
+</html>
+<style>
+    .content{
+        width: 1200px;
+        margin: auto;
+    }
+    .sec_items{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .sec_item{
+        width: 285px;
+    }
+    .goods_img{
+        width: 285px;
+        height: 285px;
+        text-align: center;
+        line-height: 285px;
+    }
+    .goods_img img{
+        max-width: 80%;
+        max-height: 80%;
+        vertical-align: middle;
+    }
+    .goods_name{
+        text-align: center;
+        letter-spacing: 1px;
+        font-size: 14px;
+        padding: 0 10px;
+        margin-top: 12px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .prices{
+        text-align: center;
+        margin-top: 12px;
+    }
+    .sec_price{
+        font-size: 20px;
+        color: #e1251b;
+        font-weight: 600;
+    }
+    .before_price{
+        font-size: 12px;
+        color: #999;
+        text-decoration: line-through;
+        margin-left: 5px;
+        margin-top: 3px;
+    }
+</style>

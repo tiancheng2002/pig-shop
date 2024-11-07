@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhu.mapper.OrderMapper">
+
+    <select id="getOrder" resultType="com.zhu.vo.OrderVo">
+        select a.*,b.gname,b.gimg,b.price from t_order a,t_goods b
+            where a.gid = b.gid and a.uid = #{uid}
+                order by a.create_time desc
+    </select>
+
+    <select id="getOrderById" resultType="com.zhu.vo.OrderVo">
+        select a.*,b.gname,b.gimg,b.price,c.*
+            from t_order a,t_goods b,t_address c
+            where a.gid = b.gid and a.uid = #{uid} and a.oid = #{oid} and a.aid = c.aid
+    </select>
+
+    <select id="userComment" resultType="com.zhu.vo.OrderVo">
+        select a.*,b.gname,b.gimg,b.price
+            from t_order a,t_goods b
+                where a.status in (4,6) and uid = #{uid} and a.gid = b.gid
+                    order by a.create_time desc
+    </select>
+    
+</mapper>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+</head>
+<body>
+<div class="detail">
+    <div class="goods_detail">
+        <div class="detail_imgs">
+            <div>
+                <div>
+                    <img class="small_img" th:src="${goods.gimg}">
+                </div>
+            </div>
+            <div class="big_img">
+                <img th:src="${goods.gimg}">
+            </div>
+        </div>
+        <div class="goods_item_detail">
+            <div class="detail_top">
+                <div class="goods_name">[[${goods.gname}]]</div>
+                <div class="top_detail">
+                    <div class="goods_description">[[${goods.description}]]</div>
+                </div>
+            </div>
+            <div class="sec_time">
+                <div>秒杀活动</div>
+                <div style="font-size: 12px">距离活动结束仅剩：1分30秒</div>
+            </div>
+            <div class="goods_num">
+                <div><span class="count">价格</span><span class="goods_price">￥[[${goods.seckillPrice}]]</span><span
+                        class="before_price">￥[[${goods.price}]]</span></div>
+                <div><span class="count">数量</span><span class="stockCount">[[${goods.stockCount}]]</span></div>
+            </div>
+            <div class="detail_button">
+                <a href="javascript:void(0)" class="myButton sec">立即秒杀</a>
+                <a href="javascript:void(0)" class="myButton star">收藏商品</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+
+    $(function () {
+        show()
+    })
+
+    function show() {
+        var id = g_getQueryString("id");
+        $.ajax({
+            url: '/seckill/detail/' + id,
+            type: 'GET',
+            success: function (res) {
+                console.log(res)
+                if (res.data.code == 200) {
+                    render(res.data.obj)
+                } else {
+                    alert("客户端错误")
+                }
+            }
+        })
+    }
+
+    function render(goods) {
+
+    }
+
+</script>
+
+</html>
+<style>
+    body {
+        background-color: #ededed;
+    }
+
+    .detail {
+        width: 1200px;
+        margin: auto;
+    }
+
+    .goods_detail {
+        margin-top: 25px;
+        background-color: white;
+        padding: 60px;
+        display: flex;
+        border-radius: 5px;
+    }
+
+    .detail_imgs {
+        display: flex;
+        margin-right: 24px;
+    }
+
+    .small_img {
+        width: 80px;
+        border: 3px solid #ccc;
+        border-radius: 5px;
+        padding: 5px;
+    }
+
+    .big_img img {
+        width: 450px
+    }
+
+    .goods_item_detail {
+        width: 450px;
+    }
+
+    .detail_top {
+        padding: 0 10px 10px 10px;
+    }
+
+    .goods_name {
+        font-size: 24px;
+        margin-bottom: 12px;
+    }
+
+    .top_detail {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .goods_description {
+        color: #bdbdbd;
+        font-size: 12px;
+    }
+
+    .goods_price {
+        color: #d44d44;
+        font-weight: 700;
+        font-size: 24px;
+        margin-left: 12px;
+    }
+
+    .goods_num {
+        display: flex;
+        justify-content: space-between;
+        padding: 24px 10px;
+    }
+
+    .count {
+        font-size: 12px;
+        color: #8d8d8d;
+    }
+
+    .detail_button {
+        margin-top: 24px;
+    }
+
+    .sec_time {
+        background: linear-gradient(90deg, #f53e00, #e1251b);
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        height: 50px;
+        line-height: 50px;
+        padding: 0 10px;
+    }
+
+    .before_price {
+        font-size: 12px;
+        color: #999;
+        text-decoration: line-through;
+        margin-left: 8px;
+    }
+
+    .stockCount {
+        color: #d44d44;
+        font-weight: 700;
+        margin-left: 8px;
+    }
+
+    .myButton {
+        text-decoration: none;
+        border: none;
+        padding: 10px 50px;
+    }
+
+    .myButton.sec {
+        background-color: #e1251b;
+        color: white;
+    }
+
+    .myButton.star {
+        background-color: white;
+        color: black;
+        border: 1px solid #ddd;
+    }
+</style>

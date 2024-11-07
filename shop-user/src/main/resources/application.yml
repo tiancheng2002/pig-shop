@@ -1,0 +1,29 @@
+
+server:
+  port: 8084
+spring:
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    timeout: 5000
+    lettuce:
+      pool:
+        max-idle: 8
+        min-idle: 0
+        max-active: 8
+        max-wait: -1
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/shop?useUnicode=utf-8&useSSL=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 12345678
+  application:
+    name: shop-user
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  type-aliases-package: com.zhu.pojo
